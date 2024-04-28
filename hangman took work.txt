@@ -1,0 +1,55 @@
+
+import random
+from other import words
+
+word = random.choice(words)
+while "-" in word:
+  word = random.choice(words).lower()
+lives = 5
+# under_scores = ["_"]*len(word)
+correct_letters = set()
+used_letters = []
+print("Hangman-_@")
+print("        /:\\")
+print("        / \\","\n")
+
+while (lives > 0) and len(correct_letters) != len(word) :
+  print(f"\nLives: {lives}")
+  letter = input("Enter a Letter: ")
+  # print(f"Letters used: {''.join(used_letters)}")
+  # display = [letter if letter in correct_letters else "-" for letter in word]
+  # print("".join(display))
+  # print("Enter a letter: ","".join(under_scores))
+  # letter = input(f"Letters used: {''.join(used_letters)}")
+  if letter in used_letters:
+    print("u already entered that letter")
+  # elif letter not in word:
+  #   used_letters.append(letter)
+  #   print("wrong letter, u lost a life")
+  #   lives -= 1
+  elif (letter in word) and (letter not in correct_letters):
+    used_letters.append(letter)
+    correct_letters.add(letter)
+    print(f"Letters used: {''.join(used_letters)}")
+    display = [letter if letter in correct_letters else "-" for letter in word]
+    print("".join(display))
+    # for every_letter in range(len(word)):
+    #   if word[every_letter] == letter:
+    #     under_scores[every_letter] = letter
+    # for i,char in enumerate(word):
+    #   if char == letter:
+    #     under_scores[i] = letter
+    if len(correct_letters) == len(word):
+      print(f"\nWow You were able to guess the word {word}, congrats!")
+      break
+  else:
+    used_letters.append(letter)
+    print(f"Letters used: {''.join(used_letters)}")
+    display = [letter if letter in correct_letters else "-" for letter in word]
+    print("".join(display))
+    if lives > 1:
+      print("\nWrong Letter! u lost a life")
+      lives -= 1
+    else:
+      print(f"\nYou died, the word was {word}")
+      break
